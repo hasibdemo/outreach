@@ -5,6 +5,29 @@ Google Sheet, checks each one's website, Google Business Profile and social
 media, then marks which businesses are worth contacting and what to pitch them
 (a new or redesigned website, Google Maps visibility, social media growth).
 
+## Set up on Windows (one time)
+
+1. Install **Node.js LTS** from nodejs.org and **Git for Windows** from git-scm.com.
+2. Get the project (PowerShell):
+   ```powershell
+   cd $HOME\Documents
+   git clone -b claude/modest-babbage-rytnw5 https://github.com/hasibdemo/outreach.git
+   cd outreach
+   ```
+   Already have an `outreach` folder from before? Run `git pull` inside it instead.
+3. Install the headless browser the website checks use:
+   ```powershell
+   npm install -g playwright
+   npx playwright install chromium
+   ```
+   If `node scripts/check_sites.mjs` then says it cannot find `playwright`, run
+   `npm install playwright` inside the `outreach` folder once.
+4. In Chrome: install **Claude in Chrome**, sign in, and stay logged in to
+   Google, Facebook, Instagram and TikTok.
+5. Open the `outreach` folder in the **Claude desktop app** (Claude Code) or
+   run `claude` in a terminal there. Make sure the **LeadOcean**, **Google
+   Sheets** and **Google Drive** connectors are on for that session.
+
 ## How to run
 
 Run Claude Code **on your Windows PC** (desktop app or CLI) from this folder,
