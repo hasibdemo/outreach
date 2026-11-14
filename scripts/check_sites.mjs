@@ -63,7 +63,9 @@ function cleanSocial(href) {
   try {
     const u = new URL(href);
     u.hash = '';
-    u.search = '';
+    // Facebook profile.php pages are identified by ?id=; keep only that.
+    const id = /profile\.php$/i.test(u.pathname) ? u.searchParams.get('id') : null;
+    u.search = id ? `?id=${id}` : '';
     return u.toString().replace(/\/$/, '');
   } catch {
     return null;
@@ -114,6 +116,7 @@ async function checkOne(browser, item) {
       // Retry over plain http if https failed outright.
       if (url.startsWith('https://')) {
         out.flags.push('https_failed');
+        out.https_error = String(e?.message || e).split('\n')[0].slice(0, 160);
         resp = await page.goto(url.replace(/^https:/, 'http:'), {
           waitUntil: 'domcontentloaded',
           timeout: NAV_TIMEOUT,
@@ -137,7 +140,9 @@ async function checkOne(browser, item) {
     const data = await page.evaluate(() => {
       const text = (document.body?.innerText || '').replace(/\s+/g, ' ').trim();
       const html = document.documentElement.outerHTML;
-      const links = [...document.querySelectorAll('a[href]')].map((a) => a.href);
+      const links = [...document.querySelectorAll('a[href]')]
+        .map((a) => (typeof a.href === 'string' ? a.href : a.getAttribute('href') || ''))
+        .filter(Boolean);
       return {
         title: document.title || null,
         metaDesc: document.querySelector('meta[name="description"]')?.content || null,
