@@ -10,6 +10,44 @@ Profile, social media) that we can fix: a beautiful website, more Google Maps
 visibility, a stronger social presence. Every status and comment should help
 answer "what is missing, and how would we pitch fixing it?"
 
+## Lead qualification: who stays in the list
+
+Every campaign targets the **owner who makes the decisions** at a small,
+independent business. The collector checks every lead right after pulling it
+from LeadOcean and **before** any website check or email lookup, and removes
+the ones that fail. Removed leads are deleted from `Leads` and logged in a
+`Removed` tab (Lead #, Company, Website, Contact, Title, Reason) so nothing is
+lost silently.
+
+**Remove when any of these is true:**
+
+1. **Not in the niche.** The company's actual business is something else,
+   even if LeadOcean files it under the niche's industry. Judge from the
+   company name, domain, job title and (once checked) the website. Examples
+   for a travel niche: interior design, product brands (toiletries, GPS maps),
+   apps / software startups, farms, property management or vacation-rental
+   accommodation, beach-equipment rental, review publications, tourism
+   bureaus and other government bodies.
+2. **Franchise.** The business is a franchise location or a franchisee of a
+   network brand: the title says "Franchise Owner", or the name, domain or
+   site shows a franchise brand (for travel: Dream Vacations, Cruise Planners,
+   CruiseOne, Expedia Cruises, Vacation Planners, Travel Leaders franchise,
+   Uniglobe and similar). Franchise owners do not control their own website
+   or marketing.
+3. **Contact is not the owner / decision maker.** Keep only founders,
+   co-founders, owners, co-owners, partners / managing partners,
+   presidents and CEOs who own the business. Remove employees and
+   contractors even at small companies: brokers, agents, "Independent
+   Contractor", advisors working under a host agency, coaches, VPs, directors
+   and managers.
+4. **Too big.** More than 50 employees.
+
+If unsure, keep the lead and say why in the comment; do not guess either way.
+
+**Never remove a lead because its website is down, parked, expired,
+outdated or missing.** Those are the best outreach targets: keep them and
+record the Website Status so the pitch can mention it.
+
 ## Google Sheet layout (tab name: `Leads`, header in row 1)
 
 | Col | Header | Written by |

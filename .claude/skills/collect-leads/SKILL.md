@@ -73,12 +73,37 @@ filters, `limit` 100, passing `meta.nextCursor` unchanged for the next block.
 Skip duplicate domains. On 429 wait a second and retry; on 402 stop and tell
 the user their monthly credits are used up.
 
+**Default search (owner-led small businesses).** Unless the user says
+otherwise, search people rather than companies so every lead comes with its
+decision maker: `mcp__LeadOcean__leadocean_search_leads` with the niche's
+`industry`, `hqCountry` **and** `country` (so the owner lives there too),
+`employeeRange` `["1-10","11-50"]` and `seniority` `["founder","owner"]`.
+Keep one person per company domain. Each row is 1 record and already
+includes company name, domain, size and LinkedIn.
+
+**2a-bis. Qualify before spending anything else.** Apply "Lead
+qualification" from the criteria file to every pulled lead: drop off-niche
+businesses, franchises, non-owner contacts and companies over 50 staff. Log
+each dropped lead with its reason in the `Removed` tab. Pull more pages until
+the block has 100 qualified leads (or results run out). Do this before
+website checks and email lookups so no credits are spent on leads that will
+be removed. If a website check later shows a lead is off-niche (e.g. the site
+sells a product), remove it then the same way. Never remove a lead because
+its website is down, parked or missing.
+
 **2b. Find a decision-maker (if in the plan).**
 `mcp__LeadOcean__leadocean_search_leads` with `domain`, `seniority`
 `["owner","founder","c_suite","partner"]`, `limit` 1 (fall back to
-`["director","manager","head"]`). Several calls per turn in parallel. If
-emails were requested, `mcp__LeadOcean__leadocean_get_lead` with
-`reveal_email: true`.
+`["director","manager","head"]`). Skip this step when the search already
+returned the owner. Several calls per turn in parallel.
+
+**2b-bis. Owner emails.** `mcp__LeadOcean__leadocean_get_lead` with the
+row's `person_id` and `reveal_email: true` (1 record each). Its responses are
+large, so hand batches of 25 to background general-purpose sub-agents that
+save `{row, email, status}` to a scratch file. Only write an email to the
+sheet if it is at the business's own domain (or a personal mailbox such as
+Gmail), is not `invalid`, and belongs to the same person; LeadOcean often
+returns a day-job address at another employer, which must not be used.
 
 **2c. Write the rows.** One `mcp__Google_Sheets__update_values` for
 `Leads!A<r0>:P<r0+n-1>` with the 16 collector columns. Only values present in
