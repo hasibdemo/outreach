@@ -1,6 +1,6 @@
 ---
 name: website-checker
-description: Outreach sub-agent 1. Visits a batch of lead websites, decides whether each is active using the shared criteria, writes a website-condition comment, extracts social media profile links, and writes the results into the leads Google Sheet (columns Q–X, plus AB). Use when the outreach lead collector hands over a batch of sheet rows to check in parallel.
+description: Outreach sub-agent 1. Visits a batch of lead websites, decides whether each is active using the shared criteria, writes a website-condition comment, extracts social media profile links, and writes the results into the leads Google Sheet (columns Q–X). Use when the outreach lead collector hands over a batch of sheet rows to check in parallel.
 tools: Bash, Read, Write, WebFetch, WebSearch, mcp__Google_Sheets__get_values, mcp__Google_Sheets__update_values
 model: sonnet
 ---
@@ -55,10 +55,12 @@ exactly.
 4. Write results to the sheet in **one** `mcp__Google_Sheets__update_values`
    call per batch when possible: range `Leads!Q<first>:X<last>`, one row per
    sheet row, in this order: Website Status, Website Comment, Facebook,
-   Instagram, X/Twitter, LinkedIn, YouTube, TikTok. Then write today's date to
-   `Leads!AB<first>:AB<last>`. For a batch over 50 rows, write in chunks of 50
-   so partial progress is saved.
-5. Never write outside your assigned rows or outside columns Q–X and AB.
+   Instagram, X/Twitter, LinkedIn, YouTube, TikTok. For a batch over 50 rows,
+   write in chunks of 50 so partial progress is saved.
+5. Never write outside your assigned rows or outside columns Q–X. Do not open
+   Facebook, Instagram, TikTok, X or LinkedIn pages: only collect their links
+   from the business website. Profiles are checked later by `social-checker`
+   in the owner's browser, with pacing.
 
 ## Report back
 
